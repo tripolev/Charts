@@ -364,7 +364,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
             
             var dataSets = barData.dataSets
 
-            let valueOffsetPlus: CGFloat = 4.5
+            let valueOffsetPlus: CGFloat = 2.5
             var posOffset: CGFloat
             var negOffset: CGFloat
             let drawValueAboveBar = dataProvider.isDrawValueAboveBarEnabled
@@ -566,7 +566,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                             for k in 0 ..< transformed.count
                             {
                                 let val = vals[k]
-                                let drawBelow = (val == 0.0 && negY == 0.0 && posY > 0.0) || val < 0.0
+                                let drawBelow = (val == 0.0 && negY == 0.0 && posY > 0.0) || val < 0.0 || k < transformed.count-1
                                 let y = transformed[k].y + (drawBelow ? negOffset : posOffset)
                                 
                                 if !viewPortHandler.isInBoundsRight(x)
@@ -617,7 +617,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
     /// Draws a value at the specified x and y position.
     open func drawValue(context: CGContext, value: String, xPos: CGFloat, yPos: CGFloat, font: NSUIFont, align: NSTextAlignment, color: NSUIColor)
     {
-        ChartUtils.drawText(context: context, text: value, point: CGPoint(x: xPos, y: yPos), align: align, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: color, NSBackgroundColorAttributeName: NSUIColor.init(red: 255/200, green: 255/200, blue: 255/200, alpha: 0.8)])
+        ChartUtils.drawText(context: context, text: value, point: CGPoint(x: xPos, y: yPos), align: align, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: color, NSBackgroundColorAttributeName: NSUIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.8)])
     }
     
     open override func drawExtras(context: CGContext)

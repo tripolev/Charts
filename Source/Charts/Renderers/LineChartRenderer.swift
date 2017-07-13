@@ -541,7 +541,7 @@ open class LineChartRenderer: LineRadarRenderer
                 let iconsOffset = dataSet.iconsOffset
                 
                 // make sure the values do not interfear with the circles
-                var valOffset = Int(dataSet.circleRadius * 1.75)
+                var valOffset = Int(dataSet.circleRadius * 1.00)
                 
                 if !dataSet.isDrawCirclesEnabled
                 {
@@ -580,7 +580,7 @@ open class LineChartRenderer: LineRadarRenderer
                                 x: pt.x,
                                 y: pt.y - CGFloat(valOffset) - valueFont.lineHeight),
                             align: .center,
-                            attributes: [NSFontAttributeName: valueFont, NSForegroundColorAttributeName: dataSet.valueTextColorAt(j)])
+                            attributes: [NSFontAttributeName: valueFont, NSForegroundColorAttributeName: dataSet.valueTextColorAt(j), NSBackgroundColorAttributeName: NSUIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.8)])
                     }
                     
                     if let icon = e.icon, dataSet.isDrawIconsEnabled
