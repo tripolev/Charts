@@ -439,7 +439,9 @@ open class ViewPortHandler: NSObject
     
     open func isInBoundsTop(_ y: CGFloat) -> Bool
     {
-        return _contentRect.origin.y <= y
+        //return _contentRect.origin.y <= y
+        let normalizedY = ceil(y * 100.0) / 100.0
+        return _contentRect.origin.y <= normalizedY
     }
     
     open func isInBoundsBottom(_ y: CGFloat) -> Bool

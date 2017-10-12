@@ -384,7 +384,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 let valueFont = dataSet.valueFont
                 let valueTextHeight = valueFont.lineHeight
                 posOffset = (drawValueAboveBar ? -(valueTextHeight + valueOffsetPlus) : valueOffsetPlus)
-                negOffset = (drawValueAboveBar ? valueOffsetPlus : -(valueTextHeight + valueOffsetPlus))
+                //negOffset = (drawValueAboveBar ? valueOffsetPlus : -(valueTextHeight + valueOffsetPlus))
+                negOffset = -(valueTextHeight + valueOffsetPlus)
                 
                 if isInverted
                 {
@@ -436,12 +437,11 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                     dataSetIndex: dataSetIndex,
                                     viewPortHandler: viewPortHandler),
                                 xPos: x,
-                                yPos: val >= 0.0
-                                    ? (rect.origin.y + posOffset)
-                                    : (rect.origin.y + rect.size.height + negOffset),
+                                yPos: rect.origin.y + posOffset,
                                 font: valueFont,
-                                align: .center,
-                                color: dataSet.valueTextColorAt(j))
+                                align: .right,
+                                color: dataSet.valueTextColorAt(j),
+                                backgroundColor: dataSet.colors.first!)
                         }
                         
                         if let icon = e.icon, dataSet.isDrawIconsEnabled
@@ -507,7 +507,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                         (e.y >= 0 ? posOffset : negOffset),
                                     font: valueFont,
                                     align: .center,
-                                    color: dataSet.valueTextColorAt(index))
+                                    color: dataSet.valueTextColorAt(index),
+                                    backgroundColor: dataSet.colors.first!)
                             }
                             
                             if let icon = e.icon, dataSet.isDrawIconsEnabled
@@ -591,8 +592,9 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                         xPos: x,
                                         yPos: y,
                                         font: valueFont,
-                                        align: .center,
-                                        color: dataSet.valueTextColorAt(index))
+                                        align: .right,
+                                        color: dataSet.valueTextColorAt(index),
+                                        backgroundColor: dataSet.colors.first!)
                                 }
                                 
                                 if let icon = e.icon, dataSet.isDrawIconsEnabled
@@ -615,9 +617,9 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
     }
     
     /// Draws a value at the specified x and y position.
-    open func drawValue(context: CGContext, value: String, xPos: CGFloat, yPos: CGFloat, font: NSUIFont, align: NSTextAlignment, color: NSUIColor)
+    open func drawValue(context: CGContext, value: String, xPos: CGFloat, yPos: CGFloat, font: NSUIFont, align: NSTextAlignment, color: NSUIColor, backgroundColor: NSUIColor)
     {
-        ChartUtils.drawText(context: context, text: value, point: CGPoint(x: xPos, y: yPos), align: align, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: color, NSBackgroundColorAttributeName: NSUIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.8)])
+        ChartUtils.drawText(context: context, text: value, point: CGPoint(x: xPos, y: yPos), align: align, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: color, NSBackgroundColorAttributeName: backgroundColor.withAlphaComponent(0.3)])
     }
     
     open override func drawExtras(context: CGContext)
