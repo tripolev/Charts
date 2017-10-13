@@ -129,7 +129,7 @@ open class ChartUtils
         
         if align == .center
         {
-            point.x -= text.size(attributes: attributes).width + 10 / 2.0
+            point.x -= (text.size(attributes: attributes).width + 10) / 2.0
         }
         else if align == .right
         {
