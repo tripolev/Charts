@@ -129,11 +129,15 @@ open class ChartUtils
         
         if align == .center
         {
-            point.x -= text.size(attributes: attributes).width / 2.0
+            point.x -= text.size(attributes: attributes).width + 10 / 2.0
         }
         else if align == .right
         {
-            point.x -= text.size(attributes: attributes).width
+            point.x -= text.size(attributes: attributes).width + 10
+        }
+        else if align == .left
+        {
+            point.x += 10
         }
         
         NSUIGraphicsPushContext(context)
